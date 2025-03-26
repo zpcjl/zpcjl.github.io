@@ -6,15 +6,8 @@
     <description>Recent content in Typecho on 林鸟狂言</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 27 Mar 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 26 Mar 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://zpcjl.github.io/tags/typecho/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>newnwe</title>
-      <link>https://zpcjl.github.io/posts/newnew/</link>
-      <pubDate>Wed, 27 Mar 2024 00:00:00 +0000</pubDate>
-      <guid>https://zpcjl.github.io/posts/newnew/</guid>
-      <description>&lt;p&gt;新文章&lt;/p&gt;</description>
-    </item>
     <item>
       <title>ubuntu22.04中typecho安装和配置</title>
       <link>https://zpcjl.github.io/posts/ubuntu22.04%E4%B8%ADtypecho%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</link>
