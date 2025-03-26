@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content=""
+  />
+  
+    
+      <title>Ubuntu22.04中KVM安装Openwrt虚拟机及管理 | 林鸟狂言</title>
+    
+  
+  <link rel="stylesheet" href="/css/reset.css"/>
+  <link rel="stylesheet" href="/css/font.css"/>
+  <link rel="stylesheet" href="/css/smigle.css"/>
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+  <body>
+    <div id="root">
+      <header>
+  <div id="brand">
+    <a class="icon-link" href="https://zpcjl.github.io/">
+      <img
+        class="icon"
+        src="/images/brandIcon.svg"
+      />
+    </a>
+    <div class="text">
+      <a href="https://zpcjl.github.io/"><h1>林鸟狂言</h1></a>
+      <h3>主人邀尽醉,林鸟助狂言。莫问愁多少,今皆付酒樽。</h3>
+    </div>
+  </div>
+  <nav>
+    
+      
+        
+        <a href="/"><b>主页</b></a>
+      
+         | 
+        <a href="/posts/"><b>文章</b></a>
+      
+         | 
+        <a href="/categories/"><b>分类</b></a>
+      
+         | 
+        <a href="/tags/"><b>标签</b></a>
+      
+         | 
+        <a href="/about/"><b>关于</b></a>
+      
+    
+  </nav>
+  <hr />
+</header>
+
+      <div id="content">
+        
+  <main>
+    <article>
+      <h1 class="title">Ubuntu22.04中KVM安装Openwrt虚拟机及管理</h1>
+      
+      <div class="post-meta">
+  <strong>
+    <span>Posted on</span>
+    <time>2025-03-26</time>
+    <span>in</span>
+    
+      <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+  </strong>
+  <span> • 307 words</span>
+  <span> • 2 minute read</span>
+  
+  
+    <div>
+      <span>Tags:</span>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B">教程</a>, 
+        <a href="/tags/kvm">kvm</a>, 
+        <a href="/tags/openwrt">openwrt</a>, 
+        <a href="/tags/ubuntu">ubuntu</a>
+    </div>
+  
+</div>
+
+      <div class="content"><p>kvm(kernel-based virtual machines)是一个基于linux内核的虚拟化技术, 可以直接将linux内核转换为hypervisor（系统管理程序）从而使得linux内核能够直接管理虚拟机, 直接调用linux内核中的内存管理、进程管理子系统来管理虚拟机。在ubuntu中安装openwrt可以作为旁路由方便管理。</p>
+<h3 id="一安装kvm和openwrt虚拟机">一、安装KVM和Openwrt虚拟机 </h3>
+<p><em><strong>本文操作都是在root账户下进行。</strong></em></p>
+<p><strong>1.验证支持KVM</strong></p>
+<p>(1)验证CPU是否支持硬件虚拟化</p>
+<pre><code>grep -Eoc '(vmx|svm)' /proc/cpuinfo //数字大于0，则代表CPU支持硬件虚拟化，反之则不支持
+</code></pre>
+<p>(2)检查 VT 是否在 BIOS 中启用</p>
+<pre><code>apt install cpu-checker //检查 VT 是否在 BIOS 中启用
+
+kvm-ok //如果处理器虚拟化能力没有在 BIOS 中被禁用，命令将会打印出,否则，这个命令将会打印一个失败信息，和打印的消息
+INFO: /dev/kvm exists
+KVM acceleration can be used
+</code></pre>
+<p><strong>2.安装KVM</strong></p>
+<pre><code>apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
+systemctl is-active libvirtd
+</code></pre>
+<p>(1)检查是否安装成功</p>
+<pre><code> lsmod | grep kvm
+</code></pre>
+<p>(2)启动虚拟化和设置开机自启</p>
+<pre><code>systemctl start libvirtd 
+systemctl enable libvirtd
+systemctl list-unit-files |grep libvirtd.service //打印启动虚拟化和设置开机自启情况
+</code></pre>
+<p><strong>3．网络环境配置</strong></p>
+<p>(1)配置网卡桥接模式</p>
+<pre><code>apt install bridge-utils
+</code></pre>
+<p>(2)安装使用命令ifconfig查看自己的网卡、ip等</p>
+<pre><code>apt install net-tools -y
+ifconfig
+</code></pre>
+<p>(3)新建/修改br0.yaml文件:</p>
+<pre><code>vim /etc/netplan/br0.yaml
+</code></pre>
+<p>文件内容如下：</p>
+<pre><code>network:
+  version: 2
+  ethernets:
+    enp1s0:#替换为实际网卡
+      dhcp4: false
+      dhcp6: false
+  bridges:
+    br0:
+      interfaces: [enp1s0] #替换为实际网卡
+      dhcp4: false
+      addresses: [192.168.1.5/24] #当前ip
+      routes:
+          - to: default
+          via: 192.168.1.1
+      nameservers:
+        addresses: [223.5.5.5,223.6.6.6]
+      parameters:
+        stp: false
+      dhcp6:  false
+</code></pre>
+<p>应用网络设置：</p>
+<pre><code>netplan apply
+</code></pre>
+<p><strong>4.创建虚拟机</strong></p>
+<p>用Winscp将openwrt.img上传到/opt/目录下，输入命令：</p>
+<pre><code>virt-install --name openwrt --ram 512 --vcpus 2 --osinfo detect=on,require=off --disk path=/opt/openwrt.img --network bridge=br0,model=e1000  --force --import --autostart --vnc --vncport=5911 --vnclisten=0.0.0.0
+</code></pre>
+<p>name,ram,vcpus,disk path,vncport等字段可根据实际设定。
+在<a href="https://www.realvnc.com/">VNC</a>中用 <code>http://ip:5911</code> 登入虚拟机</p>
+<h3 id="二kvm虚拟机管理">二、KVM虚拟机管理 </h3>
+<p><strong>1.KVM基本命令</strong></p>
+<p>（1）查看命令帮助</p>
+<pre><code>virsh -h
+</code></pre>
+<p>（2）查看KVM的配置文件存放目录</p>
+<pre><code>ls /etc/libvirt/qemu/
+</code></pre>
+<p>（3）查看虚拟机状态</p>
+<pre><code>virsh list --all
+</code></pre>
+<p>（4）虚拟机关机与开机</p>
+<pre><code>virsh shutdown openwrt
+virsh destroy openwrt
+</code></pre>
+<p><em>openwrt</em>根据实际名字修改。</p>
+<p>（5）强制实例系统关闭电源</p>
+<pre><code>virsh destroy openwrt
+</code></pre>
+<p>（6）通过配置文件启动虚拟机系统实例</p>
+<pre><code>virsh create /etc/libvirt/qemu/openwrt.xml
+virsh list --all
+</code></pre>
+<p>（7）挂起虚拟机</p>
+<pre><code>virsh suspend openwrt
+virsh list --all
+</code></pre>
+<p>（8）恢复虚拟机</p>
+<pre><code>virsh resume openwrt
+virsh list --all
+</code></pre>
+<p>（9）配置虚拟机伴随宿主机自动启动</p>
+<pre><code>virsh autostart openwrt
+</code></pre>
+<p>（10）导出虚拟机配置</p>
+<pre><code>virsh dumpxml openwrt &gt; /etc/libvirt/qemu/openwrt-2.xml
+</code></pre>
+<p>（11）虚拟机的删除与添加</p>
+<pre><code>virsh shutdown openwrt
+virsh undefine openwrt
+</code></pre>
+<p>重新定义虚拟机</p>
+<pre><code>cd /etc/libvirt/qemu
+mv centos7-2.xml openwrt.xml
+virsh define openwrt.xml
+virsh list --all
+</code></pre>
+<p>（12）修改虚拟机配置信息</p>
+<pre><code> vim /etc/libvirt/qemu/openwrt.xml        
+ virsh edit openwrt
+</code></pre>
+<p><strong>2.KVM文件管理</strong></p>
+<p>（1）查看当前磁盘格式</p>
+<pre><code>qemu-img info /data_kvm/store/openwrt.qcow2
+</code></pre>
+<p>（2）通过qemu-img命令转换磁盘文件格式，将openwrt虚拟机的raw格式磁盘转换至qcow2格式</p>
+<pre><code>virsh shutdown openwrt
+qemu-img convert -f raw -O qcow2 /data_kvm/store/openwrt.img /data_kvm/store/openwrt.qcow2
+</code></pre>
+<p>修改openwrt的xml配置文件中的磁盘类型与磁盘文件名</p>
+<pre><code>virsh edit openwrt
+</code></pre>
+<p>（3） virt-cat,类似cat命令</p>
+<pre><code>vist-cat -a /data_kvm/store/openwrt.qcow2 /etc/sysconfig/grub
+</code></pre>
+<p>（4）virt-edit，编辑文件，用法与vim一致</p>
+<pre><code>virt-edit -a /data_kvm/store/openwrt.qcow2 /etc/resolv.conf
+</code></pre>
+<p>（5）virt-df命令用于查看虚拟机磁盘信息</p>
+<pre><code>vist -df -h openwrt
+</code></pre>
+<p><strong>3.克隆虚拟机</strong></p>
+<p>（1）查看虚拟机状态</p>
+<pre><code>virsh list --all
+</code></pre>
+<p>（2）从<em>openwrt</em>克隆<em>openwrt</em>-2</p>
+<pre><code>virt-clon -o openwrt -n centos7-2 -f /data_kvm/store/openwrt.qcown2
+</code></pre>
+<p>（3）查看虚拟机状态</p>
+<pre><code>virsh list --all
+</code></pre>
+<p>（4）启动虚拟机</p>
+<pre><code>virsh start openwrt
+</code></pre>
+<p><strong>4.虚拟机快照</strong></p>
+<p>（1）对openwrt创建快照</p>
+<pre><code>virsh snapshot-create openwrt
+</code></pre>
+<p>（2）查看虚拟机快照版本信息</p>
+<pre><code>virsh snapshot-current openwrt
+</code></pre>
+<p>（3）查看快照信息</p>
+<pre><code>virsh snapshot-list openwrt
+</code></pre>
+<p>（4）恢复虚拟机状态至{编号}</p>
+<pre><code>virsh snapshot-revert openwrt 编码
+</code></pre>
+<p>（5）删除快照</p>
+<pre><code>virs snapshot-delete openwrt 编码
+</code></pre>
+</div>
+    </article>
+  </main>
+
+      </div>
+      <footer>
+  <hr />
+  
+    <p id="social">
+      <strong>作者相关主页:</strong>     
+      
+        
+        <a href="https://github.com/zpcjl">GitHub</a>
+      
+         | 
+        <a href="https://space.bilibili.com/67350431">bilibili</a>
+      
+    </p>
+  
+  <p class="copyright">
+    Copyright © 2025
+    <a href="https://zpcjl.github.io/"><strong>林鸟狂言</strong></a>.
+    Powered by <a href="http://www.gohugo.io/">Hugo</a>,
+    Theme <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
+    licensed <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+
+</footer>
+
+    </div>
+  </body>
+</html>

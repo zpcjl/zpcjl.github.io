@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Plex on 林鸟狂言</title>
+    <link>https://zpcjl.github.io/tags/plex/</link>
+    <description>Recent content in Plex on 林鸟狂言</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 26 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://zpcjl.github.io/tags/plex/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu22.04安装Plex,并开启硬件解码</title>
+      <link>https://zpcjl.github.io/posts/ubuntu22.04%E5%AE%89%E8%A3%85plex%E5%B9%B6%E5%BC%80%E5%90%AF%E7%A1%AC%E4%BB%B6%E8%A7%A3%E7%A0%81/</link>
+      <pubDate>Wed, 26 Mar 2025 00:00:00 +0000</pubDate>
+      <guid>https://zpcjl.github.io/posts/ubuntu22.04%E5%AE%89%E8%A3%85plex%E5%B9%B6%E5%BC%80%E5%90%AF%E7%A1%AC%E4%BB%B6%E8%A7%A3%E7%A0%81/</guid>
+      <description>&lt;p&gt;    Plex是一个媒体播放器和媒体服务器的组合，它可以让你把所有的媒体文件都放在一个地方，然后在任何设备上都可以轻松地访问和播放。你只需要在一台电脑或NAS上安装Plex Media Server，然后把你的媒体文件添加到它的数据库中，就可以通过网络把它们提供给其他设备。&lt;/p&gt;&#xA;&lt;p&gt;   本文是在N5095小主机中的Ubuntu22.04安装Plex，Ubuntu22.04默认的内核版本为5.15，而这个版本内含一个bug，导致11代IntelCPU无法正常开启硬件解码。&lt;/p&gt;&#xA;&lt;h3 id=&#34;一下载安装plex-media-server&#34;&gt;一、下载安装Plex Media Server&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;1.进入Plex网站下载：&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://www.plex.tv/zh/&#34;&gt;https://www.plex.tv/zh/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;鼠标移动到下载，点击&lt;em&gt;&lt;strong&gt;Plex Media Server&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://cdnjson.com/images/2024/01/31/1b2be73b8b0487867.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;依次选择Linux-选择分布Ubuntu(16.04+)/Debian(8+)64-bit&#xA;&lt;img src=&#34;https://cdnjson.com/images/2024/01/31/208beaddd60d221a5.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;2.用Winscp将下载的plexmediaserver_xxx.deb文件上传到Ubuntu /opt/目录下&lt;/strong&gt;&#xA;进入目录安装：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;cd /opt&#xD;&#xA;dpkg -i plexmediaserver_xxx.deb&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;启动、停止、开机启动命令：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;systemctl start plexmediaserver&#xD;&#xA;systemctl stop plexmediaserver&#xD;&#xA;systemctl enable plexmediaserver&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;**3.浏览器输入http://ip:32400即可进入服务器配置&#xA;**&lt;/p&gt;&#xA;&lt;h3 id=&#34;二ubuntu开启硬解&#34;&gt;二、Ubuntu开启硬解&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;1.升级内核版本&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;使用 dpkg 手动方式升级 Linux 内核&lt;/p&gt;&#xA;&lt;p&gt;从 &lt;a href=&#34;https://kernel.ubuntu.com/mainline/&#34;&gt;kernel.ubuntu.com&lt;/a&gt; 网站手动下载5.18以上 Linux 内核&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://cdnjson.com/images/2024/01/31/18bbcbc35949db7ac.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;点击你所选择的 Linux 内核版本链接，找到你对应的架构（“Build for XXX”）的那部分。然后下载符合以下格式的两个文件（其中 X.Y.Z 是最高版本号）：&lt;/p&gt;&#xA;&lt;p&gt;1.linux-image-X.Y.Z-generic-*.deb&lt;/p&gt;&#xA;&lt;p&gt;2.linux-modules-X.Y.Z-generic-.deb&lt;/p&gt;&#xA;&lt;p&gt;在终端中改变到文件所在的目录，然后root用户执行命令手动安装内核：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;dpkg --install *.deb&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;重启系统，使用新内核：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;reboot&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;检查是否如你所愿：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;uname -r&#xD;&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;&lt;strong&gt;2.Intel显卡驱动配置&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
