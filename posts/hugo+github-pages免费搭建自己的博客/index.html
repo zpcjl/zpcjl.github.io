@@ -99,7 +99,7 @@
 <p>（1）前往【Git官网】，下载安装程序</p>
 <p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/git%E4%B8%8B%E8%BD%BD.png" alt=""></p>
 <p>（2）一直点下一步，默认安装即可</p>
-<p>####2.Hugo下载</p>
+<h4 id="2hugo下载">2.Hugo下载</h4>
 <p>前往【<a href="https://github.com/gohugoio/hugo/tags" title="hugo">Hugo Github Tags</a>】，选择对应版本下载，下载后解压即可</p>
 <p>Windows下载版本：hugo_extended_xxxxx_windows_amd64.zip</p>
 <p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/hugo%E4%B8%8B%E8%BD%BD.png" alt=""></p>
@@ -153,6 +153,8 @@ git push -u origin main
 <p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/createToken3.png" alt=""></p>
 <p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/setToken1.png" alt=""></p>
 <p>（5）在Actions中New workflows -&gt; set up a workflow yourself新建一个hugo-deploy.yml文件，内容如下：</p>
+<p><img src="/img/action.JPG" alt=""></p>
+<p><img src="/img/set.JPG" alt=""></p>
 <pre><code>name: deploy
 
 # 代码提交到main分支时触发github action
@@ -189,8 +191,6 @@ steps:
   PUBLISH_DIR: ./public
   commit_message: auto deploy
 </code></pre>
-<p><img src="https://cdnjson.com/image/action.SSihGD" alt=""></p>
-<p><img src="http://cdnjson.com/image/SSiX46" alt=""></p>
 <p>想了解更多可查看【<a href="https://docs.github.com/zh/actions">Github Action文档</a>】和【<a href="https://gohugo.io/host-and-deploy/host-on-github-pages/">Hugo文档</a>】</p>
 <p>（6）在hugo主文件创建.gitignore文件，来避免提交不必要的文件</p>
 <pre><code># 自动生成的文件
@@ -238,7 +238,7 @@ git push -u origin main
   <p class="copyright">
     Copyright © 2025
     <a href="https://zpcjl.github.io/"><strong>林鸟狂言</strong></a>.
-    Powered by <a href="http://www.gohugo.io/">Hugo</a>,
+    Powered by <a href="http://www.gohugo.io/">Hugo</a> <a href="http://github.com/">Github</a>,
     Theme <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
     licensed <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
 
