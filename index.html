@@ -70,6 +70,94 @@
 		
 		
 			<article class="summary">
+  <a href="https://zpcjl.github.io/posts/hugo&#43;github-pages%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">
+    <h1 class="title">hugo&#43;github pages免费搭建自己的博客</h1>
+    
+  </a>
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+<div class="post-meta">
+  <strong>
+    <span>Posted on</span>
+    <time>2025-03-27</time>
+    <span>in</span>
+    
+      <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+  </strong>
+ <span> • 236 words</span>
+ <span> • 2 minute read</span>
+  
+    <div>
+      <span>Tags:</span>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B">教程</a>, 
+        <a href="/tags/github">github</a>, 
+        <a href="/tags/hugo">hugo</a>, 
+        <a href="/tags/%E5%8D%9A%E5%AE%A2">博客</a>
+    </div>
+  
+</div>
+
+  <div class="content">
+    <p><p>GitHub Pages 可以用来展示一些开源项目、主持博客甚或分享您的简历。Hugo 是 Go 编写的静态网站生成器，速度快，易用，可配置。通过hugo生成静态网站部署到github pages就可以得到我们的私人博客。</p>
+<h3 id="一环境准备">一、环境准备</h3>
+<p>本文使用的是windows 10,linux和macos操作类似，可查看<a href="https://gohugo.io/getting-started/quick-start/" title="hugo docs">hugo官方文档</a>。</p>
+<h4 id="1git下载">1.Git下载</h4>
+<p>（1）前往【Git官网】，下载安装程序</p>
+<p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/git%E4%B8%8B%E8%BD%BD.png" alt=""></p>
+<p>（2）一直点下一步，默认安装即可</p>
+<p>####2.Hugo下载</p>
+<p>前往【<a href="https://github.com/gohugoio/hugo/tags" title="hugo">Hugo Github Tags</a>】，选择对应版本下载，下载后解压即可</p>
+<p>Windows下载版本：hugo_extended_xxxxx_windows_amd64.zip</p>
+<p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/hugo%E4%B8%8B%E8%BD%BD.png" alt=""></p>
+<h3 id="二本地搭建博客">二、本地搭建博客</h3>
+<h4 id="1创建博客">1.创建博客</h4>
+<p>（1）在hugo.exe所在文件夹的地址栏敲打cmd，然后Enter唤起命令行</p>
+<p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/1%E5%90%AF%E5%8A%A8cmd.png" alt=""></p>
+<p>(2)输入命令创建hugo网站文件</p>
+<pre><code>hugo new site xxxx
+</code></pre>
+<p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/2newSite.png" alt=""></p>
+<p>(3)切换目录，并把hugo.exe复制到刚生成的文件夹中</p>
+<pre><code>cd xxxx
+</code></pre>
+<p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/3cd.png" alt=""></p>
+<h4 id="2配置hugo主题">2.配置hugo主题</h4>
+<p>（1）到【<a href="https://themes.gohugo.io/" title="theme">Hugo Themes</a>】，挑选下载主题</p>
+<p>（2）将下载好的主题解压，主题目录放到/themes文件夹中</p>
+<p><img src="http://cdnjson.com/image/SSiCJY" alt=""></p>
+<p>（3）删除主文件夹中的hugo.toml和content文件夹</p>
+<p>(4)将exampleSite样例数据中的 Content文件夹 和 hugo.yaml（或config.yaml） 复制到主文件夹中</p>
+<p>（5）修改 hugo.yaml（或config.yaml） 中的 theme，将他修改为跟主题文件夹同名</p>
+<p>（6）启动服务，在本机试访问</p>
+<pre><code>hugo server -D    
+http://localhost:1313
+</code></pre>
+<p>（7）修改主题配置</p>
+<p>hugo.yaml（或config.yaml）和主题文件夹下的layouts文件夹等</p>
+<h3 id="三github部署">三、Github部署</h3>
+<h4 id="1常规部署">1.常规部署</h4>
+<p>（1）前往【<a href="https://github.com/">Github官网</a>】，创建仓库 {github用户名}.github.io</p>
+<p>（2）在仓库的Setting -&gt; Pages Deploy from branch,Branch选择main-&gt; save</p></p>
+    
+      <a href="https://zpcjl.github.io/posts/hugo&#43;github-pages%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">Read more...</a>
+    
+  </div>
+</article>
+
+		
+			<article class="summary">
   <a href="https://zpcjl.github.io/posts/ubuntu22.04%E4%B8%ADkvm%E5%AE%89%E8%A3%85openwrt%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8F%8A%E7%AE%A1%E7%90%86/">
     <h1 class="title">Ubuntu22.04中KVM安装Openwrt虚拟机及管理</h1>
     
@@ -90,7 +178,7 @@
 <div class="post-meta">
   <strong>
     <span>Posted on</span>
-    <time>2025-03-26</time>
+    <time>2024-03-26</time>
     <span>in</span>
     
       <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
@@ -139,92 +227,6 @@ systemctl list-unit-files |grep libvirtd.service //打印启动虚拟化和设�
 <p><strong>3．网络环境配置</strong></p></p>
     
       <a href="https://zpcjl.github.io/posts/ubuntu22.04%E4%B8%ADkvm%E5%AE%89%E8%A3%85openwrt%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8F%8A%E7%AE%A1%E7%90%86/">Read more...</a>
-    
-  </div>
-</article>
-
-		
-			<article class="summary">
-  <a href="https://zpcjl.github.io/posts/ubuntu22.04%E5%AE%89%E8%A3%85plex%E5%B9%B6%E5%BC%80%E5%90%AF%E7%A1%AC%E4%BB%B6%E8%A7%A3%E7%A0%81/">
-    <h1 class="title">Ubuntu22.04安装Plex,并开启硬件解码</h1>
-    
-  </a>
-  
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="post-meta">
-  <strong>
-    <span>Posted on</span>
-    <time>2025-03-26</time>
-    <span>in</span>
-    
-      <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
-  </strong>
- <span> • 189 words</span>
- <span> • 1 minute read</span>
-  
-    <div>
-      <span>Tags:</span>
-      
-        <a href="/tags/%E6%95%99%E7%A8%8B">教程</a>, 
-        <a href="/tags/plex">plex</a>, 
-        <a href="/tags/ubuntu">ubuntu</a>
-    </div>
-  
-</div>
-
-  <div class="content">
-    <p><p>    Plex是一个媒体播放器和媒体服务器的组合，它可以让你把所有的媒体文件都放在一个地方，然后在任何设备上都可以轻松地访问和播放。你只需要在一台电脑或NAS上安装Plex Media Server，然后把你的媒体文件添加到它的数据库中，就可以通过网络把它们提供给其他设备。</p>
-<p>   本文是在N5095小主机中的Ubuntu22.04安装Plex，Ubuntu22.04默认的内核版本为5.15，而这个版本内含一个bug，导致11代IntelCPU无法正常开启硬件解码。</p>
-<h3 id="一下载安装plex-media-server">一、下载安装Plex Media Server</h3>
-<p><strong>1.进入Plex网站下载：</strong></p>
-<p><a href="https://www.plex.tv/zh/">https://www.plex.tv/zh/</a></p>
-<p>鼠标移动到下载，点击<em><strong>Plex Media Server</strong></em></p>
-<p><img src="https://cdnjson.com/images/2024/01/31/1b2be73b8b0487867.jpg" alt=""></p>
-<p>依次选择Linux-选择分布Ubuntu(16.04+)/Debian(8+)64-bit
-<img src="https://cdnjson.com/images/2024/01/31/208beaddd60d221a5.jpg" alt=""></p>
-<p><strong>2.用Winscp将下载的plexmediaserver_xxx.deb文件上传到Ubuntu /opt/目录下</strong>
-进入目录安装：</p>
-<pre><code>cd /opt
-dpkg -i plexmediaserver_xxx.deb
-</code></pre>
-<p>启动、停止、开机启动命令：</p>
-<pre><code>systemctl start plexmediaserver
-systemctl stop plexmediaserver
-systemctl enable plexmediaserver
-</code></pre>
-<p>**3.浏览器输入http://ip:32400即可进入服务器配置
-**</p>
-<h3 id="二ubuntu开启硬解">二、Ubuntu开启硬解</h3>
-<p><strong>1.升级内核版本</strong></p>
-<p>使用 dpkg 手动方式升级 Linux 内核</p>
-<p>从 <a href="https://kernel.ubuntu.com/mainline/">kernel.ubuntu.com</a> 网站手动下载5.18以上 Linux 内核</p>
-<p><img src="https://cdnjson.com/images/2024/01/31/18bbcbc35949db7ac.jpg" alt=""></p>
-<p>点击你所选择的 Linux 内核版本链接，找到你对应的架构（“Build for XXX”）的那部分。然后下载符合以下格式的两个文件（其中 X.Y.Z 是最高版本号）：</p>
-<p>1.linux-image-X.Y.Z-generic-*.deb</p>
-<p>2.linux-modules-X.Y.Z-generic-.deb</p>
-<p>在终端中改变到文件所在的目录，然后root用户执行命令手动安装内核：</p>
-<pre><code>dpkg --install *.deb
-</code></pre>
-<p>重启系统，使用新内核：</p>
-<pre><code>reboot
-</code></pre>
-<p>检查是否如你所愿：</p>
-<pre><code>uname -r
-</code></pre>
-<p><strong>2.Intel显卡驱动配置</strong></p></p>
-    
-      <a href="https://zpcjl.github.io/posts/ubuntu22.04%E5%AE%89%E8%A3%85plex%E5%B9%B6%E5%BC%80%E5%90%AF%E7%A1%AC%E4%BB%B6%E8%A7%A3%E7%A0%81/">Read more...</a>
     
   </div>
 </article>
@@ -331,6 +333,139 @@ vim default
 <p>验证文件的正确性：</p></p>
     
       <a href="https://zpcjl.github.io/posts/ubuntu22.04%E4%B8%ADtypecho%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/">Read more...</a>
+    
+  </div>
+</article>
+
+		
+			<article class="summary">
+  <a href="https://zpcjl.github.io/posts/ubuntu22.04%E5%AE%89%E8%A3%85plex%E5%B9%B6%E5%BC%80%E5%90%AF%E7%A1%AC%E4%BB%B6%E8%A7%A3%E7%A0%81/">
+    <h1 class="title">Ubuntu22.04安装Plex,并开启硬件解码</h1>
+    
+  </a>
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+<div class="post-meta">
+  <strong>
+    <span>Posted on</span>
+    <time>2024-03-26</time>
+    <span>in</span>
+    
+      <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+  </strong>
+ <span> • 189 words</span>
+ <span> • 1 minute read</span>
+  
+    <div>
+      <span>Tags:</span>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B">教程</a>, 
+        <a href="/tags/plex">plex</a>, 
+        <a href="/tags/ubuntu">ubuntu</a>
+    </div>
+  
+</div>
+
+  <div class="content">
+    <p><p>    Plex是一个媒体播放器和媒体服务器的组合，它可以让你把所有的媒体文件都放在一个地方，然后在任何设备上都可以轻松地访问和播放。你只需要在一台电脑或NAS上安装Plex Media Server，然后把你的媒体文件添加到它的数据库中，就可以通过网络把它们提供给其他设备。</p>
+<p>   本文是在N5095小主机中的Ubuntu22.04安装Plex，Ubuntu22.04默认的内核版本为5.15，而这个版本内含一个bug，导致11代IntelCPU无法正常开启硬件解码。</p>
+<h3 id="一下载安装plex-media-server">一、下载安装Plex Media Server</h3>
+<p><strong>1.进入Plex网站下载：</strong></p>
+<p><a href="https://www.plex.tv/zh/">https://www.plex.tv/zh/</a></p>
+<p>鼠标移动到下载，点击<em><strong>Plex Media Server</strong></em></p>
+<p><img src="https://cdnjson.com/images/2024/01/31/1b2be73b8b0487867.jpg" alt=""></p>
+<p>依次选择Linux-选择分布Ubuntu(16.04+)/Debian(8+)64-bit
+<img src="https://cdnjson.com/images/2024/01/31/208beaddd60d221a5.jpg" alt=""></p>
+<p><strong>2.用Winscp将下载的plexmediaserver_xxx.deb文件上传到Ubuntu /opt/目录下</strong>
+进入目录安装：</p>
+<pre><code>cd /opt
+dpkg -i plexmediaserver_xxx.deb
+</code></pre>
+<p>启动、停止、开机启动命令：</p>
+<pre><code>systemctl start plexmediaserver
+systemctl stop plexmediaserver
+systemctl enable plexmediaserver
+</code></pre>
+<p>**3.浏览器输入http://ip:32400即可进入服务器配置
+**</p>
+<h3 id="二ubuntu开启硬解">二、Ubuntu开启硬解</h3>
+<p><strong>1.升级内核版本</strong></p>
+<p>使用 dpkg 手动方式升级 Linux 内核</p>
+<p>从 <a href="https://kernel.ubuntu.com/mainline/">kernel.ubuntu.com</a> 网站手动下载5.18以上 Linux 内核</p>
+<p><img src="https://cdnjson.com/images/2024/01/31/18bbcbc35949db7ac.jpg" alt=""></p>
+<p>点击你所选择的 Linux 内核版本链接，找到你对应的架构（“Build for XXX”）的那部分。然后下载符合以下格式的两个文件（其中 X.Y.Z 是最高版本号）：</p>
+<p>1.linux-image-X.Y.Z-generic-*.deb</p>
+<p>2.linux-modules-X.Y.Z-generic-.deb</p>
+<p>在终端中改变到文件所在的目录，然后root用户执行命令手动安装内核：</p>
+<pre><code>dpkg --install *.deb
+</code></pre>
+<p>重启系统，使用新内核：</p>
+<pre><code>reboot
+</code></pre>
+<p>检查是否如你所愿：</p>
+<pre><code>uname -r
+</code></pre>
+<p><strong>2.Intel显卡驱动配置</strong></p></p>
+    
+      <a href="https://zpcjl.github.io/posts/ubuntu22.04%E5%AE%89%E8%A3%85plex%E5%B9%B6%E5%BC%80%E5%90%AF%E7%A1%AC%E4%BB%B6%E8%A7%A3%E7%A0%81/">Read more...</a>
+    
+  </div>
+</article>
+
+		
+			<article class="summary">
+  <a href="https://zpcjl.github.io/posts/%E5%8E%9F%E7%89%88openwrt%E7%BC%96%E8%AF%91%E5%92%8C%E6%B7%BB%E5%8A%A0password%E6%8F%92%E4%BB%B6/">
+    <h1 class="title">原版Openwrt编译和添加passwall、openclash插件</h1>
+    
+  </a>
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+<div class="post-meta">
+  <strong>
+    <span>Posted on</span>
+    <time>2024-03-26</time>
+    <span>in</span>
+    
+      <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+  </strong>
+ 
+ 
+  
+    <div>
+      <span>Tags:</span>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B">教程</a>, 
+        <a href="/tags/openwrt">openwrt</a>, 
+        <a href="/tags/passwal">passwal</a>, 
+        <a href="/tags/openclash">openclash</a>
+    </div>
+  
+</div>
+
+  <div class="content">
+    <p></p>
     
   </div>
 </article>

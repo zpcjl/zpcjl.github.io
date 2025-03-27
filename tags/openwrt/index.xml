@@ -6,14 +6,21 @@
     <description>Recent content in Openwrt on 林鸟狂言</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 26 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 26 Mar 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://zpcjl.github.io/tags/openwrt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ubuntu22.04中KVM安装Openwrt虚拟机及管理</title>
       <link>https://zpcjl.github.io/posts/ubuntu22.04%E4%B8%ADkvm%E5%AE%89%E8%A3%85openwrt%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8F%8A%E7%AE%A1%E7%90%86/</link>
-      <pubDate>Wed, 26 Mar 2025 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 26 Mar 2024 00:00:00 +0000</pubDate>
       <guid>https://zpcjl.github.io/posts/ubuntu22.04%E4%B8%ADkvm%E5%AE%89%E8%A3%85openwrt%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8F%8A%E7%AE%A1%E7%90%86/</guid>
       <description>&lt;p&gt;kvm(kernel-based virtual machines)是一个基于linux内核的虚拟化技术, 可以直接将linux内核转换为hypervisor（系统管理程序）从而使得linux内核能够直接管理虚拟机, 直接调用linux内核中的内存管理、进程管理子系统来管理虚拟机。在ubuntu中安装openwrt可以作为旁路由方便管理。&lt;/p&gt;&#xA;&lt;h3 id=&#34;一安装kvm和openwrt虚拟机&#34;&gt;一、安装KVM和Openwrt虚拟机 &lt;/h3&gt;&#xA;&lt;p&gt;&lt;em&gt;&lt;strong&gt;本文操作都是在root账户下进行。&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;1.验证支持KVM&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;(1)验证CPU是否支持硬件虚拟化&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;grep -Eoc &#39;(vmx|svm)&#39; /proc/cpuinfo //数字大于0，则代表CPU支持硬件虚拟化，反之则不支持&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;(2)检查 VT 是否在 BIOS 中启用&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;apt install cpu-checker //检查 VT 是否在 BIOS 中启用&#xA;&#xA;kvm-ok //如果处理器虚拟化能力没有在 BIOS 中被禁用，命令将会打印出,否则，这个命令将会打印一个失败信息，和打印的消息&#xA;INFO: /dev/kvm exists&#xA;KVM acceleration can be used&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;&lt;strong&gt;2.安装KVM&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager&#xA;systemctl is-active libvirtd&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;(1)检查是否安装成功&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt; lsmod | grep kvm&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;(2)启动虚拟化和设置开机自启&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;systemctl start libvirtd &#xA;systemctl enable libvirtd&#xA;systemctl list-unit-files |grep libvirtd.service //打印启动虚拟化和设置开机自启情况&#xA;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;&lt;strong&gt;3．网络环境配置&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>原版Openwrt编译和添加passwall、openclash插件</title>
+      <link>https://zpcjl.github.io/posts/%E5%8E%9F%E7%89%88openwrt%E7%BC%96%E8%AF%91%E5%92%8C%E6%B7%BB%E5%8A%A0password%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Tue, 26 Mar 2024 00:00:00 +0000</pubDate>
+      <guid>https://zpcjl.github.io/posts/%E5%8E%9F%E7%89%88openwrt%E7%BC%96%E8%AF%91%E5%92%8C%E6%B7%BB%E5%8A%A0password%E6%8F%92%E4%BB%B6/</guid>
+      <description></description>
     </item>
   </channel>
 </rss>
