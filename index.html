@@ -110,46 +110,7 @@
 </div>
 
   <div class="content">
-    <p><p>GitHub Pages 可以用来展示一些开源项目、主持博客甚或分享您的简历。Hugo 是 Go 编写的静态网站生成器，速度快，易用，可配置。通过hugo生成静态网站部署到github pages就可以得到我们的私人博客。</p>
-<h3 id="一环境准备">一、环境准备</h3>
-<p>本文使用的是windows 10,linux和macos操作类似，可查看<a href="https://gohugo.io/getting-started/quick-start/" title="hugo docs">hugo官方文档</a>。</p>
-<h4 id="1git下载">1.Git下载</h4>
-<p>（1）前往【Git官网】，下载安装程序</p>
-<p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/git%E4%B8%8B%E8%BD%BD.png" alt=""></p>
-<p>（2）一直点下一步，默认安装即可</p>
-<p>####2.Hugo下载</p>
-<p>前往【<a href="https://github.com/gohugoio/hugo/tags" title="hugo">Hugo Github Tags</a>】，选择对应版本下载，下载后解压即可</p>
-<p>Windows下载版本：hugo_extended_xxxxx_windows_amd64.zip</p>
-<p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/hugo%E4%B8%8B%E8%BD%BD.png" alt=""></p>
-<h3 id="二本地搭建博客">二、本地搭建博客</h3>
-<h4 id="1创建博客">1.创建博客</h4>
-<p>（1）在hugo.exe所在文件夹的地址栏敲打cmd，然后Enter唤起命令行</p>
-<p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/1%E5%90%AF%E5%8A%A8cmd.png" alt=""></p>
-<p>(2)输入命令创建hugo网站文件</p>
-<pre><code>hugo new site xxxx
-</code></pre>
-<p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/2newSite.png" alt=""></p>
-<p>(3)切换目录，并把hugo.exe复制到刚生成的文件夹中</p>
-<pre><code>cd xxxx
-</code></pre>
-<p><img src="https://letere-gzj.github.io/hugo-stack/p/hugo/custom-blog/3cd.png" alt=""></p>
-<h4 id="2配置hugo主题">2.配置hugo主题</h4>
-<p>（1）到【<a href="https://themes.gohugo.io/" title="theme">Hugo Themes</a>】，挑选下载主题</p>
-<p>（2）将下载好的主题解压，主题目录放到/themes文件夹中</p>
-<p><img src="http://cdnjson.com/image/SSiCJY" alt=""></p>
-<p>（3）删除主文件夹中的hugo.toml和content文件夹</p>
-<p>(4)将exampleSite样例数据中的 Content文件夹 和 hugo.yaml（或config.yaml） 复制到主文件夹中</p>
-<p>（5）修改 hugo.yaml（或config.yaml） 中的 theme，将他修改为跟主题文件夹同名</p>
-<p>（6）启动服务，在本机试访问</p>
-<pre><code>hugo server -D    
-http://localhost:1313
-</code></pre>
-<p>（7）修改主题配置</p>
-<p>hugo.yaml（或config.yaml）和主题文件夹下的layouts文件夹等</p>
-<h3 id="三github部署">三、Github部署</h3>
-<h4 id="1常规部署">1.常规部署</h4>
-<p>（1）前往【<a href="https://github.com/">Github官网</a>】，创建仓库 {github用户名}.github.io</p>
-<p>（2）在仓库的Setting -&gt; Pages Deploy from branch,Branch选择main-&gt; save</p></p>
+    <p><p>GitHub Pages 可以用来展示一些开源项目、主持博客甚或分享您的简历。Hugo 是 Go 编写的静态网站生成器，速度快，易用，可配置。通过hugo生成静态网站部署到github pages就可 …</p></p>
     
       <a href="https://zpcjl.github.io/posts/hugo&#43;github-pages%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">Read more...</a>
     
@@ -198,33 +159,7 @@ http://localhost:1313
 </div>
 
   <div class="content">
-    <p><p>kvm(kernel-based virtual machines)是一个基于linux内核的虚拟化技术, 可以直接将linux内核转换为hypervisor（系统管理程序）从而使得linux内核能够直接管理虚拟机, 直接调用linux内核中的内存管理、进程管理子系统来管理虚拟机。在ubuntu中安装openwrt可以作为旁路由方便管理。</p>
-<h3 id="一安装kvm和openwrt虚拟机">一、安装KVM和Openwrt虚拟机 </h3>
-<p><em><strong>本文操作都是在root账户下进行。</strong></em></p>
-<p><strong>1.验证支持KVM</strong></p>
-<p>(1)验证CPU是否支持硬件虚拟化</p>
-<pre><code>grep -Eoc '(vmx|svm)' /proc/cpuinfo //数字大于0，则代表CPU支持硬件虚拟化，反之则不支持
-</code></pre>
-<p>(2)检查 VT 是否在 BIOS 中启用</p>
-<pre><code>apt install cpu-checker //检查 VT 是否在 BIOS 中启用
-
-kvm-ok //如果处理器虚拟化能力没有在 BIOS 中被禁用，命令将会打印出,否则，这个命令将会打印一个失败信息，和打印的消息
-INFO: /dev/kvm exists
-KVM acceleration can be used
-</code></pre>
-<p><strong>2.安装KVM</strong></p>
-<pre><code>apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
-systemctl is-active libvirtd
-</code></pre>
-<p>(1)检查是否安装成功</p>
-<pre><code> lsmod | grep kvm
-</code></pre>
-<p>(2)启动虚拟化和设置开机自启</p>
-<pre><code>systemctl start libvirtd 
-systemctl enable libvirtd
-systemctl list-unit-files |grep libvirtd.service //打印启动虚拟化和设置开机自启情况
-</code></pre>
-<p><strong>3．网络环境配置</strong></p></p>
+    <p><p>kvm(kernel-based virtual machines)是一个基于linux内核的虚拟化技术, 可以直接将linux内核转换为hypervisor（系统管理程序）从而使得linux内核能够 …</p></p>
     
       <a href="https://zpcjl.github.io/posts/ubuntu22.04%E4%B8%ADkvm%E5%AE%89%E8%A3%85openwrt%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8F%8A%E7%AE%A1%E7%90%86/">Read more...</a>
     
@@ -272,65 +207,7 @@ systemctl list-unit-files |grep libvirtd.service //打印启动虚拟化和设�
 </div>
 
   <div class="content">
-    <p><p><a href="https://typecho.org/">Typecho</a>是一个轻量级的开源博客系统，具有简单、易用的特点。本文是在<a href="https://www.oracle.com/">Oracle</a>实例 Ubuntu-22.04-Minimal 系统上安装 Typecho 博客系统的基本步骤。包括Nginx、PHP、Mysql、Typecho的安装和配置。此方法按照实际情况请参考使用！</p>
-<hr>
-<h3 id="一开放实例防火墙">一、开放实例防火墙</h3>
-<hr>
-<p><strong>root下（下同）输入命令：</strong></p>
-<pre><code>iptables -P INPUT ACCEPT
-iptables -P FORWARD ACCEPT
-iptables -P OUTPUT ACCEPT
-iptables -F
-</code></pre>
-<p><em>80,443端口自行在安全列表中开放。</em></p>
-<h3 id="二安装nginxvimunzip">二、安装nginx、vim、unzip</h3>
-<hr>
-<p><strong>输入命令：</strong></p>
-<pre><code>apt install nginx vim unzip -y
-</code></pre>
-<p>在浏览器http://IP 可以出现Welcome to nginx!</p>
-<h3 id="三安装php及相关扩展">三、安装PHP及相关扩展</h3>
-<hr>
-<p>输入命令：</p>
-<pre><code>apt install php-fpm php-mysql php-curl php-gd php-mbstring php-xml -y
-</code></pre>
-<h3 id="四修改nginx配置文件测试php">四、修改Nginx配置文件，测试PHP</h3>
-<hr>
-<p>1.修改配置</p>
-<p>进入nginx的配置文件夹：</p>
-<pre><code>cd /etc/nginx/sites-available/
-</code></pre>
-<p>先备份然后再修改：</p>
-<pre><code>cp default default.back
-vim default
-</code></pre>
-<p>修改Nginx配置文件为（删掉原来的文件复制粘贴即可）：</p>
-<pre><code>server {
-    listen 80;
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-    server_name iblogs.me; # 填入域名
-    
-    ssl_certificate /etc/ssl/cert.pem;# 填入SSL证书路径
-    ssl_certificate_key /etc/ssl/key.pem;# 填入SSL证书路径
-    
-    root /var/www/html; 
-
-    index index.php index.html index.htm;
-
-    location / {
-        try_files $uri $uri/ /index.php?$args;
-    }
-
-    location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php8.1-fpm.sock; # 注意版本号8.1，与安装的php版本号对应
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include fastcgi_params;
-    }
-}
-</code></pre>
-<p>验证文件的正确性：</p></p>
+    <p><p><a href="https://typecho.org/">Typecho</a>是一个轻量级的开源博客系统，具有简单、易用的特点。本文是在<a href="https://www.oracle.com/">Oracle</a>实例 Ubuntu-22.04-Minimal 系统上安装 Typecho 博客系统的基本步骤。包 …</p></p>
     
       <a href="https://zpcjl.github.io/posts/ubuntu22.04%E4%B8%ADtypecho%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/">Read more...</a>
     
@@ -378,45 +255,7 @@ vim default
 </div>
 
   <div class="content">
-    <p><p>    Plex是一个媒体播放器和媒体服务器的组合，它可以让你把所有的媒体文件都放在一个地方，然后在任何设备上都可以轻松地访问和播放。你只需要在一台电脑或NAS上安装Plex Media Server，然后把你的媒体文件添加到它的数据库中，就可以通过网络把它们提供给其他设备。</p>
-<p>   本文是在N5095小主机中的Ubuntu22.04安装Plex，Ubuntu22.04默认的内核版本为5.15，而这个版本内含一个bug，导致11代IntelCPU无法正常开启硬件解码。</p>
-<h3 id="一下载安装plex-media-server">一、下载安装Plex Media Server</h3>
-<p><strong>1.进入Plex网站下载：</strong></p>
-<p><a href="https://www.plex.tv/zh/">https://www.plex.tv/zh/</a></p>
-<p>鼠标移动到下载，点击<em><strong>Plex Media Server</strong></em></p>
-<p><img src="https://cdnjson.com/images/2024/01/31/1b2be73b8b0487867.jpg" alt=""></p>
-<p>依次选择Linux-选择分布Ubuntu(16.04+)/Debian(8+)64-bit
-<img src="https://cdnjson.com/images/2024/01/31/208beaddd60d221a5.jpg" alt=""></p>
-<p><strong>2.用Winscp将下载的plexmediaserver_xxx.deb文件上传到Ubuntu /opt/目录下</strong>
-进入目录安装：</p>
-<pre><code>cd /opt
-dpkg -i plexmediaserver_xxx.deb
-</code></pre>
-<p>启动、停止、开机启动命令：</p>
-<pre><code>systemctl start plexmediaserver
-systemctl stop plexmediaserver
-systemctl enable plexmediaserver
-</code></pre>
-<p>**3.浏览器输入http://ip:32400即可进入服务器配置
-**</p>
-<h3 id="二ubuntu开启硬解">二、Ubuntu开启硬解</h3>
-<p><strong>1.升级内核版本</strong></p>
-<p>使用 dpkg 手动方式升级 Linux 内核</p>
-<p>从 <a href="https://kernel.ubuntu.com/mainline/">kernel.ubuntu.com</a> 网站手动下载5.18以上 Linux 内核</p>
-<p><img src="https://cdnjson.com/images/2024/01/31/18bbcbc35949db7ac.jpg" alt=""></p>
-<p>点击你所选择的 Linux 内核版本链接，找到你对应的架构（“Build for XXX”）的那部分。然后下载符合以下格式的两个文件（其中 X.Y.Z 是最高版本号）：</p>
-<p>1.linux-image-X.Y.Z-generic-*.deb</p>
-<p>2.linux-modules-X.Y.Z-generic-.deb</p>
-<p>在终端中改变到文件所在的目录，然后root用户执行命令手动安装内核：</p>
-<pre><code>dpkg --install *.deb
-</code></pre>
-<p>重启系统，使用新内核：</p>
-<pre><code>reboot
-</code></pre>
-<p>检查是否如你所愿：</p>
-<pre><code>uname -r
-</code></pre>
-<p><strong>2.Intel显卡驱动配置</strong></p></p>
+    <p><p>    Plex是一个媒体播放器和媒体服务器的组合，它可以让你把所有的媒体文件都放在一个地方，然后在任何设备上都可以轻松地访问和播放。你只需要在一台电脑或NAS上安装Plex Media …</p></p>
     
       <a href="https://zpcjl.github.io/posts/ubuntu22.04%E5%AE%89%E8%A3%85plex%E5%B9%B6%E5%BC%80%E5%90%AF%E7%A1%AC%E4%BB%B6%E8%A7%A3%E7%A0%81/">Read more...</a>
     
