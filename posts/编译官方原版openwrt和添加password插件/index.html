@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content=""
+  />
+  
+    
+      <title>编译官方原版Openwrt，添加passwall、openclash插件 | 林鸟狂言</title>
+    
+  
+  <link rel="stylesheet" href="/css/reset.css"/>
+  <link rel="stylesheet" href="/css/font.css"/>
+  <link rel="stylesheet" href="/css/smigle.css"/>
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+  <body>
+    <div id="root">
+      <header>
+  <div id="brand">
+    <a class="icon-link" href="https://zpcjl.github.io/">
+      <img
+        class="icon"
+        src="/images/brandIcon.svg"
+      />
+    </a>
+    <div class="text">
+      <a href="https://zpcjl.github.io/"><h1>林鸟狂言</h1></a>
+      <h3>主人邀尽醉,林鸟助狂言。莫问愁多少,今皆付酒樽。</h3>
+    </div>
+  </div>
+  <nav>
+    
+      
+        
+        <a href="/"><b>主页</b></a>
+      
+         | 
+        <a href="/posts/"><b>文章</b></a>
+      
+         | 
+        <a href="/categories/"><b>分类</b></a>
+      
+         | 
+        <a href="/tags/"><b>标签</b></a>
+      
+         | 
+        <a href="/about/"><b>关于</b></a>
+      
+    
+  </nav>
+  <hr />
+</header>
+
+      <div id="content">
+        
+  <main>
+    <article>
+      <h1 class="title">编译官方原版Openwrt，添加passwall、openclash插件</h1>
+      
+      <div class="post-meta">
+  <strong>
+    <span>Posted on</span>
+    <time>2025-03-28</time>
+    <span>in</span>
+    
+      <a href="/categories/%E6%8A%80%E6%9C%AF">技术</a>
+  </strong>
+  <span> • 449 words</span>
+  <span> • 3 minute read</span>
+  
+  
+    <div>
+      <span>Tags:</span>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B">教程</a>, 
+        <a href="/tags/openwrt">openwrt</a>, 
+        <a href="/tags/passwal">passwal</a>, 
+        <a href="/tags/openclash">openclash</a>
+    </div>
+  
+</div>
+
+      <div class="content"><p>使用<a href="https://downloads.openwrt.org/">OpenWrt</a> 官方稳定版源码，根据个人需要修改了自定义配置，添加了passwall、openclash等插件。固件整体干净稳定，适合长期使用。</p>
+<p>源码：<a href="https://github.com/openwrt/openwrt">https://github.com/openwrt/openwrt</a></p>
+<h3 id="一准备工作">一、准备工作</h3>
+<h4 id="使用环境">使用环境</h4>
+<ul>
+<li>系统：Debian 12 x64位系统</li>
+<li>网络：可以访问外网（国内请全局科学上网）</li>
+</ul>
+<h4 id="安装依赖">安装依赖</h4>
+<p>更改安装源为阿里云</p>
+<pre><code>vi /etc/apt/sources.list
+</code></pre>
+<p>替换为以下内容：</p>
+<pre><code>deb https://mirrors.aliyun.com/debian/ bookworm main non-free non-free-firmware contrib
+deb-src https://mirrors.aliyun.com/debian/ bookworm main non-free non-free-firmware contrib
+deb https://mirrors.aliyun.com/debian-security/ bookworm-security main
+deb-src https://mirrors.aliyun.com/debian-security/ bookworm-security main
+deb https://mirrors.aliyun.com/debian/ bookworm-updates main non-free non-free-firmware contrib
+deb-src https://mirrors.aliyun.com/debian/ bookworm-updates main non-free non-free-firmware contrib
+deb https://mirrors.aliyun.com/debian/ bookworm-backports main non-free non-free-firmware contrib
+deb-src https://mirrors.aliyun.com/debian/ bookworm-backports main non-free non-free-firmware contrib
+</code></pre>
+<p>以<code>root</code>用户执行（或其他用户<code>sudo</code>执行）：</p>
+<pre><code>apt update -y
+apt upgrade -y
+apt install -y ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential \
+bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
+git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev \
+libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz \
+mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python3 python3-pip libpython3-dev qemu-utils \
+rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+</code></pre>
+<p>安装python2.7</p>
+<pre><code>/etc/apt/sources.list.d/bullseye.list
+</code></pre>
+<p>添加以下内容</p>
+<pre><code>deb http://deb.debian.org/debian bullseye main
+deb http://deb.debian.org/debian bullseye-updates main
+deb http://security.debian.org bullseye-security main
+</code></pre>
+<p>执行</p>
+<pre><code>apt update
+apt install python2.7
+</code></pre>
+<h4 id="下载源码">下载源码</h4>
+<p>切换普通用户,不要用<code>root</code></p>
+<pre><code>su ...
+# 下载源码（-b 指定分支/标签、 --single-branch 仅下载单个分支/标签、 --depth=1 只下载最新的一次提交 ）
+git clone -b v24.10.0 --single-branch --depth=1 https://github.com/openwrt/openwrt.git
+# 进入到该目录
+cd openwrt
+</code></pre>
+<h3 id="二相关配置">二、相关配置</h3>
+<p>更改时区</p>
+<pre><code># 编辑配置文件
+vim package/base-files/files/bin/config_generate +315
+# 修改时区为 CST-8
+set system.@system[-1].timezone='CST-8'
+# 再在下一行添加如下内容
+set system.@system[-1].zonename='Asia/Shanghai'
+</code></pre>
+<p>默认IP（按需更改）</p>
+<pre><code># 编辑配置文件
+vim package/base-files/files/bin/config_generate +165
+# 修改如下内容
+lan) ipad=${ipaddr:-&quot;192.168.1.1&quot;} ;;
+</code></pre>
+<h3 id="三软件包">三、软件包</h3>
+<h4 id="系统软件包">系统软件包</h4>
+<p>默认情况下，系统<code> feeds.conf.default</code> 配置的下载地址是 <code>git.openwrt.org </code>，该地址下载较慢，可以切换到 <code>GitHub</code> 下载</p>
+<p>编辑配置文件</p>
+<pre><code>vim feeds.conf.default
+</code></pre>
+<p>删除所有内容，粘贴如下内容并保存</p>
+<pre><code>src-git packages https://github.com/openwrt/packages.git^201fd099b80a2931b7326ce20b0cbb824296c99f
+src-git luci https://github.com/openwrt/luci.git^7b0663a5557118499dc3b3d44550efc1b6fa3feb
+src-git routing https://github.com/openwrt/routing.git^e87b55c6a642947ad7e24cd5054a637df63d5dbe
+src-git telephony https://github.com/openwrt/telephony.git^fd605af7143165a2490681ec1752f259873b9147
+</code></pre>
+<h4 id="三方软件包">三方软件包</h4>
+<p>添加第三方软件有两种方式：</p>
+<ul>
+<li>
+<p>将软件包仓库地址写入<code>feeds.conf.default</code>文件中，可以参考当前目录下的该文件</p>
+</li>
+<li>
+<p>使用 git clone 手动下载软件包放入到 package 文件夹中</p>
+</li>
+</ul>
+<p><strong>先原始编译一次再添加第三方包</strong></p>
+<h4 id="更新软件包">更新软件包</h4>
+<p>执行以下代码更新 <code>feeds</code> 包</p>
+<pre><code>./scripts/feeds update -a
+./scripts/feeds install -a
+</code></pre>
+<h3 id="四菜单配置">四、菜单配置</h3>
+<p>执行以下命令打开菜单配置</p>
+<pre><code>make menuconfig
+</code></pre>
+<ul>
+<li><code>↑ ↓ </code>键：上下切换</li>
+<li><code>PgUp PgDn </code>键：上下翻页</li>
+<li><code>Enter</code> 回车键：进入子菜单/选择/确认</li>
+<li><code>Y </code>键：选中，在 <code>&lt; &gt;</code> 上进行操作，操作后变为 <code>&lt;*&gt;</code></li>
+<li><code>N </code>键：取消选中，在 <code>&lt;*&gt;</code> 上进行操作，操作后变为 <code>&lt; &gt;</code></li>
+<li><code>Esc</code> 键：连击两下，返回上层菜单，如果在主菜单则为退出配置</li>
+</ul>
+<p>按照如下配置进行选择：</p>
+<ul>
+<li>Target System -&gt; x86</li>
+<li>Subtarget -&gt; x86_64</li>
+<li>Target Images</li>
+</ul>
+<p>            (1) Seconds to wait before booting the default entry</p>
+<p>            (32) Kernel partition size (in MiB)</p>
+<p>            (256) Root filesystem partition size</p>
+<ul>
+<li>Base system -&gt; &lt;*&gt; dnsmasq-full</li>
+<li>LuCI</li>
+</ul>
+<ol>
+<li>Collections，选择luci-nginx</li>
+<li>Modules，Translations -&gt; Chinese Simplified (zh_Hans)</li>
+<li>Themes，按需选择</li>
+</ol>
+<p>重新配置命令</p>
+<pre><code>rm -rf ./tmp &amp;&amp; rm -rf .config
+make menuconfig
+</code></pre>
+<p>预下载（这里会先把编译时要下载的文件下载下来，只是一部分，后面编译阶段还会下载，仍需保持网络畅通）</p>
+<pre><code>make download -j8 V=s
+</code></pre>
+<h3 id="五编译">五、编译</h3>
+<p>使用 -j 参数可以指定编译时使用的线程数</p>
+<pre><code># 根据CPU核心数开启指定线程数执行编译
+make V=s -j$(nproc)
+# 如果编译过程中报错了，需要使用单线程模式，确认出错的地方，然后排查（注：有时候单线程就不报错了）
+make V=s -j1
+</code></pre>
+<h3 id="六添加三方软件包">六、添加三方软件包</h3>
+<h4 id="1-passwall">1. passwall</h4>
+<p>添加包含 PassWall 的2个分支的packages和Luci的 feed （在openwrt目录）</p>
+<pre><code>echo &quot;src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main&quot; &gt;&gt; &quot;feeds.conf.default&quot;
+echo &quot;src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main&quot; &gt;&gt; &quot;feeds.conf.default&quot;
+</code></pre>
+<p>下载 <code>feeds</code> 源中的软件包源码</p>
+<pre><code>./scripts/feeds update -a
+</code></pre>
+<p><code>openwrt24</code>更新 <code>golang</code> 到最新版本</p>
+<pre><code>rm -rf feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 24.x feeds/packages/lang/golang
+</code></pre>
+<p>优先安装passwall_packages中的 feeds 软件包</p>
+<pre><code>./scripts/feeds install -a -f -p passwall_packages
+</code></pre>
+<p>安装 feeds 中luci-app-passwall的软件包</p>
+<pre><code>./scripts/feeds install luci-app-passwall
+</code></pre>
+<p>因为目前安装极简模式，必须要在<code>feeds</code>中安装<code>luci-base</code>的软件包才能编译<code>luci-i18n-passwall-zh-cn</code></p>
+<pre><code>./scripts/feeds install luci-base
+</code></pre>
+<p>编译luci-base</p>
+<pre><code>make package/luci-base/compile V=99
+</code></pre>
+<h4 id="2-openclash">2. openclash</h4>
+<p>将下面代码添加到 feeds.conf.default 文件</p>
+<pre><code>src-git openclash https://github.com/vernesong/OpenClash.git
+</code></pre>
+<p>然后更新、安装 feed 软件包：</p>
+<pre><code>./scripts/feeds update -a
+./scripts/feeds install -a
+</code></pre>
+<p>进入 <code>menuconfig</code> 配置,选择<code>openclash,passwall</code></p>
+<pre><code>make menuconfig
+</code></pre>
+<p><code>LuCI</code> -&gt; <code>Applications</code> -&gt; 选择<code>passwall,openclash</code></p>
+<h3 id="七获取镜像">七、获取镜像</h3>
+<p>编译完成后，镜像文件地址是：<code>./bin/targets/x86/64</code></p>
+</div>
+    </article>
+  </main>
+
+      </div>
+      <footer>
+  <hr />
+  
+    <p id="social">
+      <strong>作者相关主页:</strong>     
+      
+        
+        <a href="https://github.com/zpcjl">GitHub</a>
+      
+         | 
+        <a href="https://space.bilibili.com/67350431">bilibili</a>
+      
+    </p>
+  
+  <p class="copyright">
+    Copyright © 2025
+    <a href="https://zpcjl.github.io/"><strong>林鸟狂言</strong></a>.
+    Powered by <a href="http://www.gohugo.io/">Hugo</a> <a href="http://github.com/">Github</a>,
+    Theme <a href="https://gitlab.com/ian-s-mcb/smigle-hugo-theme">smigle</a>.
+    licensed <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+
+</footer>
+
+    </div>
+  </body>
+</html>
